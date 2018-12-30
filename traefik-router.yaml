@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: chess
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - host: tom.usthe.com
+    http:
+      paths:
+      - path: /usthe
+        backend:
+          serviceName: usthe
+          servicePort: http
+      - path: /ingress
+        backend:
+          serviceName: traefik
+          servicePort: http
+      - path: /nginx
+        backend:
+          serviceName: nginx
+          servicePort: http

@@ -35,8 +35,6 @@ subjects:
 - kind: ServiceAccount
   name: traefik-ingress-controller
   namespace: kube-system
-
----
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -80,6 +78,7 @@ spec:
         - --kubernetes
         - --logLevel=INFO
 ---
+apiVersion: v1
 kind: Service
 metadata:
   name: traefik-web-ui
@@ -97,6 +96,10 @@ kind: Ingress
 metadata:
   name: traefik-web-ui
   namespace: kube-system
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefixStrip
+
 spec:
   rules:
   - host: tom.usthe.com
